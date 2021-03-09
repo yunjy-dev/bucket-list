@@ -1,0 +1,55 @@
+$background-color:#eee;
+$background-color-hover:yellow;
+
+
+.App{
+    width: 100vw;
+    min-height: 100vh;
+    background-color:#{$background-color};
+    padding: 32px;
+    box-sizing: border-box;
+    &:hover{
+        background-color:#{$background-color-hover};
+    }
+}
+
+.container{
+    max-width: 350px;
+    min-height: 50vh;
+    background-color: #fff;
+    padding: 16px;
+    margin: 20px auto;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.title{
+    color: slateblue;
+    text-align: center;
+}
+
+.line{
+    margin: 16px 0px;
+    border: 1px dotted #ddd;
+}
+
+.lists{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.list-item{
+    padding: 16px;
+    margin: 8px;
+    background-color: aliceblue;
+}
+
+.router{
+    border-width: 1px;
+    padding: 16px;
+    margin: 8px;
+    background-color: aliceblue;
+}
