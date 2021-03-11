@@ -8,6 +8,7 @@ import './scss/style.scss';
 import styled from 'styled-components';
 import LifecycleEx from './components/LifeCycle';
 import Nemo from './components/Nemo';
+import {Button, ButtonGroup} from '@material-ui/core/';
 
 
 import {
@@ -28,8 +29,13 @@ import NotFound from './components/NotFound'
 
 import {connect} from 'react-redux';
 import {loadBucket, createBucket, deleteBucket} from './redux/modules/bucket'
+import Spinner from './components/Spinner'
+
 const mapStateToProps = (state) => {
-  return {bucket_list: state.bucket.list};
+  return {
+    bucket_list: state.bucket.list,
+    is_loaded: state.bucket.is_loaded 
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -111,41 +117,52 @@ class App extends React.Component {
       return (
       <div className="App">
         <Nemo/>
-        <div className="container">
-            <h1 className="title">내 버킷리스트</h1>
-            <hr className="line"/>
-            {/* 컴포넌트를 넣어줍니다. */}
-            {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
-            {/* <BucketList list={this.state.list} bgColor={'red'}/> */}
-            {/* {component_is_show? ():null} */}
-            {this.state.component_is_show? (<LifecycleEx></LifecycleEx>):null}
-            <button onClick={this.set_component_is_show.bind(this)}>없어져라 컴포넌트</button>
-            <button onClick={this.handleClick.bind(this)} value="Click me">sdfasdf</button>
+        
+        {!this.props.is_loaded? (<Spinner/>) : (<React.Fragment>
 
 
-            <Switch>
-              {/* <BucketList list={this.state.list} /> */}
-              {/* 아래는 redux사용 , mapStateToProps*/}
-              {/* <Route path='/' exact render={(props)=> <BucketList list={this.props.bucket_list} />}></Route> */}
+            <div className="container">
+              <h1 className="title">내 버킷리스트</h1>
+              <hr className="line"/>
+              {/* 컴포넌트를 넣어줍니다. */}
+              {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
+              {/* <BucketList list={this.state.list} bgColor={'red'}/> */}
+              {/* {component_is_show? ():null} */}
+              {this.state.component_is_show? (<LifecycleEx></LifecycleEx>):null}
+              <button onClick={this.set_component_is_show.bind(this)}>없어져라 컴포넌트</button>
+              <button onClick={this.handleClick.bind(this)} value="Click me">sdfasdf</button>
 
-              {/* history가 넘어간 BucketList  */}
-              <Route path='/' exact render={(props)=> <BucketList history={this.props.history} list={this.props.bucket_list} />}></Route>
-              {/* <Route path='/detail' component={Detail}/> */}
 
-              {/* 아래와 같이 index넘겨주는거 app과 BucketList history, detail의 props 3군데에서 변경해야한다. */}
-              <Route path='/detail/:index' component={Detail}/>
+              <Switch>
+                {/* <BucketList list={this.state.list} /> */}
+                {/* 아래는 redux사용 , mapStateToProps*/}
+                {/* <Route path='/' exact render={(props)=> <BucketList list={this.props.bucket_list} />}></Route> */}
 
-              {/* <Route component={NotFound}/> */}
-              <Route render={(props) => (<NotFound history={this.props.history}/>)}></Route>
-            </Switch>
-            {/* 독립BucketList */}
-            {/* <BucketList  history={this.props.history} list={this.props.bucket_list} /> */}
-            <input type="text" ref={this.text}></input><button onClick={this.handleClick.bind(this)} value="Click me">추가</button>
-            <Input>
-              <input type="text" ref={this.text}></input>
-              <button onClick={this.addBucketList} value="Click me">추가</button>
-            </Input>
-        </div>
+                {/* history가 넘어간 BucketList  */}
+                <Route path='/' exact render={(props)=> <BucketList history={this.props.history} list={this.props.bucket_list} />}></Route>
+                {/* <Route path='/detail' component={Detail}/> */}
+
+                {/* 아래와 같이 index넘겨주는거 app과 BucketList history, detail의 props 3군데에서 변경해야한다. */}
+                <Route path='/detail/:index' component={Detail}/>
+
+                {/* <Route component={NotFound}/> */}
+                <Route render={(props) => (<NotFound history={this.props.history}/>)}></Route>
+              </Switch>
+              {/* 독립BucketList */}
+              {/* <BucketList  history={this.props.history} list={this.props.bucket_list} /> */}
+              <input type="text" ref={this.text}></input><button onClick={this.handleClick.bind(this)} value="Click me">추가</button>
+              <Input>
+                <input type="text" ref={this.text}></input>
+                <button onClick={this.addBucketList} value="Click me">추가2</button>
+              </Input>
+              <ButtonGroup>
+                  <Button variant="contained" color="primary" size="small" onClick={this.addBucketList} value="Click me">추가</Button>
+                  <Button variant="contained" color="secondary" size="small" onClick={this.addBucketList} value="Click me">추가</Button>
+              </ButtonGroup>
+          </div>
+
+
+        </React.Fragment>)}
 
         <StyleTest>
         </StyleTest>
